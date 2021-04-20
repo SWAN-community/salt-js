@@ -115,10 +115,10 @@ function SWANSalt(element, initValue) {
     }
 
     function fromByteArray(b) {
-        var n1 = b[0]&0xF
-        var n2 = b[0]>>4
-        var n3 = b[1]&0xF
-        var n4 = b[1]>>4
+        var n1 = b[0]>>4
+        var n2 = b[0]&0xF
+        var n3 = b[1]>>4
+        var n4 = b[1]&0xF
     
         selected = [n1, n2, n3, n4]
     }
