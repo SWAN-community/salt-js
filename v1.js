@@ -14,7 +14,6 @@
  * under the License.
  * ***************************************************************************/
 
-
 /* This implementation needs to be modified to support screen readers and ARIA 
  * prior to production use. It is provided for conceptual demonstration purposes 
  * only at this time.
@@ -22,7 +21,7 @@
 
 /* Icons provided by the Noun Project under creative commons licence. */ 
 
-function SWANSalt(element) {
+function SWANSalt(element, initValue) {
 
     const images = [
         '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 100 125" style="enable-background:new 0 0 100 100;" xml:space="preserve"><path d="M93.4,27.4c0-7.7-6.3-14-14-14c-4.3,0-8.3,2-11,5.3c-5.1-2.6-11-4.1-17.1-4.1c-7,0-13.6,1.9-19.2,5.3  c-2.5-4-6.9-6.5-11.8-6.5c-7.7,0-14,6.3-14,14c0,6,3.7,11.1,9.1,13.1c-1.3,3.8-2,7.8-2,12c0,20.9,17,37.9,37.9,37.9  c20.9,0,37.9-17,37.9-37.9c0-4.7-0.9-9.1-2.4-13.3C90.9,36.8,93.4,32.3,93.4,27.4z M34.4,59c-1.8,0-3.2-1.9-3.2-4.2  c0-2.3,1.4-4.2,3.2-4.2c1.8,0,3.2,1.9,3.2,4.2C37.6,57.1,36.2,59,34.4,59z M59.1,76.3c-1.4,0.5-2.7,0.8-3.8,0.8  c-1.3,0-2.5-0.4-3.4-1.1c-0.3-0.2-0.5-0.5-0.7-0.7c-0.2,0.2-0.4,0.5-0.7,0.7c-0.9,0.8-2,1.1-3.4,1.1c-1.1,0-2.4-0.3-3.8-0.8  c-0.6-0.2-1-1-0.7-1.6c0.2-0.6,1-1,1.6-0.7c1.5,0.6,3.6,1,4.7,0.1c0.7-0.6,0.9-1.6,1-2.6c0-0.5,0-1,0-1.4c0,0,0,0,0-0.1  c-2.5-0.5-4.3-2.2-4.3-4.3c0-2.5,2.6-4.5,5.8-4.5c3.2,0,5.8,2,5.8,4.5c0,2.2-2.1,4-4.8,4.4c0,0.4,0,0.9,0,1.4c0.1,1,0.4,2,1,2.5  c1.1,0.9,3.2,0.5,4.7-0.1c0.6-0.2,1.4,0.1,1.6,0.7C60.1,75.3,59.7,76,59.1,76.3z M66.4,59.5c-1.8,0-3.2-1.9-3.2-4.2  c0-2.3,1.4-4.2,3.2-4.2s3.2,1.9,3.2,4.2C69.7,57.6,68.2,59.5,66.4,59.5z"/></svg>',
@@ -41,7 +40,7 @@ function SWANSalt(element) {
         '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 30" x="0px" y="0px"><title>travel &amp;amp; hobby</title><path d="M15,2H9A5.0018,5.0018,0,0,0,4,7V17a3.01,3.01,0,0,0,1.827,2.7589l-.5341.5341A1,1,0,0,0,6.707,21.707L8.4141,20h7.1719l1.707,1.707A1,1,0,0,0,18.707,20.293l-.5341-.5341A3.01,3.01,0,0,0,20,17V7A5.0018,5.0018,0,0,0,15,2ZM8,17a1,1,0,1,1,1-1A1.003,1.003,0,0,1,8,17ZM7,11V7A2.0059,2.0059,0,0,1,9,5h6a2.0059,2.0059,0,0,1,2,2v4a2.0059,2.0059,0,0,1-2,2H9A2.0059,2.0059,0,0,1,7,11Zm9,6a1,1,0,1,1,1-1A1.003,1.003,0,0,1,16,17Z"/></svg>',
         '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" x="0px" y="0px" viewBox="0 0 95 118.75" enable-background="new 0 0 95 95" xml:space="preserve"><path d="M83.799,31.74c0-6.328-5.129-11.455-11.454-11.455c-0.978,0-1.921,0.135-2.828,0.365  c-0.778-5.859-5.783-10.383-11.855-10.383c-3.254,0-6.2,1.301-8.358,3.408c-1.447-3.822-5.13-6.545-9.458-6.545  c-5.59,0-10.121,4.531-10.121,10.121c0,0.758,0.09,1.494,0.249,2.205c-1.172-0.5-2.459-0.779-3.813-0.779  c-5.354,0-9.693,4.34-9.693,9.691c0,1.441,0.322,2.805,0.887,4.033c-3.598,1.402-6.152,4.891-6.152,8.984  c0,2.828,1.225,5.363,3.162,7.127c-0.475,1.324-0.746,2.744-0.746,4.23c0,6.928,5.615,12.545,12.543,12.545  c3.9,0,7.379-1.785,9.677-4.578c4.28,3.328,8.583,10.787,2.296,27.158h16.035c0,0-9.892-15.344,0.021-24  c1.956,2.826,5.193,4.697,8.89,4.697c5.984,0,10.835-4.85,10.835-10.832c0-0.521-0.05-1.031-0.12-1.531  c5.375-0.711,9.527-5.301,9.527-10.871c0-2.391-0.771-4.596-2.069-6.396C82.843,36.967,83.799,34.467,83.799,31.74z M37.177,58.672  c0.171-0.316,0.356-0.625,0.499-0.959c1.646-0.047,3.215-0.385,4.659-0.973c-0.324,0.926-0.528,1.982-0.496,3.188  C41.867,61.031,39.664,59.941,37.177,58.672z M44.958,58.463c1.147,0.631,2.398,1.092,3.728,1.34  c-0.357,0.484-0.729,1.01-1.146,1.623C44.831,65.434,44.61,62.186,44.958,58.463z M51.461,63.707  c-3.552,2.748-2.287-0.598-0.687-3.701c0.063,0,0.125,0.01,0.188,0.01c0.51,0,1.008-0.041,1.502-0.098  c0.177,0.869,0.492,1.682,0.865,2.461C52.752,62.754,52.134,63.186,51.461,63.707z"/></svg>',
         '<svg xmlns="http://www.w3.org/2000/svg" data-name="Layer 1" viewBox="0 0 64 80" x="0px" y="0px"><path d="M54,54.93A8,8,0,0,0,61,47a8,8,0,0,0-7,4.13v-8.2A8,8,0,0,0,61,35V31c-2,0-2,2-4,2s-2-2-4-2-2,2-4,2-2-2-4-2v4a8,8,0,0,0,7,7.93v6.2A8,8,0,0,0,45,45a8,8,0,0,0,7,7.93V60H33V33A12,12,0,0,0,44,21a12,12,0,0,0-11,7.21V20A10,10,0,0,0,42,10V2c-2.5,0-2.5,4-5,4s-2.5-4-5-4-2.5,4-5,4S24.5,2,22,2v8a10,10,0,0,0,9,10V30.21A12,12,0,0,0,20,23,12,12,0,0,0,31,35V60H12V56.93A8,8,0,0,0,19,49a8,8,0,0,0-7,4.13v-8.2A8,8,0,0,0,19,37V33c-2,0-2,2-4,2s-2-2-4-2-2,2-4,2-2-2-4-2v4a8,8,0,0,0,7,7.93v6.2A8,8,0,0,0,3,47a8,8,0,0,0,7,7.93V60H1v2H63V60H54ZM31,16a7,7,0,0,0,7-7h2a9,9,0,0,1-9,9Z"/></svg>',
-    ]
+    ];
 
     const gridStyle = `
     #salt-grid {
@@ -90,7 +89,7 @@ function SWANSalt(element) {
         bottom: 0px;
         right: 1em;
     }
-    `
+    `;
             
     const gridId = 'salt-grid';
     const colIdPrefix = 'salt-col-';
@@ -103,7 +102,26 @@ function SWANSalt(element) {
         const style = document.createElement('style');
         style.textContent = gridStyle;
         document.head.append(style);
-      }
+    }
+
+    function fromBase64(v) {
+        var binary = window.atob(v);
+        var len = binary.length;
+        var b = new Uint8Array(len);
+        for (var i = 0; i < len; i++) {
+            b[i] = binary.charCodeAt(i);
+        }
+        fromByteArray(b)
+    }
+
+    function fromByteArray(b) {
+        var n1 = b[0]&0xF
+        var n2 = b[0]>>4
+        var n3 = b[1]&0xF
+        var n4 = b[1]>>4
+    
+        selected = [n1, n2, n3, n4]
+    }
 
     function stringValue() {
         var binary = "";
@@ -124,7 +142,7 @@ function SWANSalt(element) {
         }
     }
 
-    function value() {
+    function displayValue() {
         return selected.join('-');
     }
 
@@ -170,9 +188,8 @@ function SWANSalt(element) {
         }
     }
 
-    function updateIndicator(value) {
+    function updateIndicator(value, item) {
         var element = document.getElementById(colIdPrefix + value);
-        var item = selected.length;
         
         var indicator = document.createElement('div');
         indicator.classList.add(getIndicatorClass(item));
@@ -180,7 +197,6 @@ function SWANSalt(element) {
         
         indicators.push(indicator);
         element.appendChild(indicator);
-
     }
 
     function add(event) {
@@ -189,8 +205,9 @@ function SWANSalt(element) {
         
         if (selected.length < 4) {
             selected.push(value);
-            updateIndicator(value);
+            updateIndicator(value, selected.length);
         }
+
         if (selected.length == 4){
             complete();
         }
@@ -212,10 +229,30 @@ function SWANSalt(element) {
         }
     }
 
+    function init() {
+        if (initValue) {
+            if (typeof initValue == 'string') {
+                fromBase64(initValue)
+            } else if (typeof initValue == 'object' &&
+                initValue.constructor === Uint8Array) {
+                fromByteArray(initValue)
+            } else {
+                throw `initValue type of '${typeof initValue}' not supported.`;
+            }
+
+            if (selected.length == 4) {
+                for(i = 0; i < selected.length; i++){
+                    updateIndicator(selected[i], i+1);
+                }
+                complete();
+            }
+        }
+    }
+
     //#region public methods and getters
 
-    Object.defineProperty(this, 'value', { 
-        get: function() { return value(); } 
+    Object.defineProperty(this, 'displayValue', { 
+        get: function() { return displayValue(); } 
     });
 
     Object.defineProperty(this, 'byteValue', { 
@@ -239,4 +276,6 @@ function SWANSalt(element) {
     // generate grid;
     addStyle();
     salt();
+    init();
+
 }
