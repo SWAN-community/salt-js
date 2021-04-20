@@ -126,6 +126,9 @@ function SWANSalt(element, initValue) {
     function stringValue() {
         var binary = "";
         var v = byteValue();
+        if (v == undefined) {
+            return '';
+        }
         var len = v.byteLength;
         for (var i = 0; i < len; i++) {
             binary += String.fromCharCode(v[i]);
