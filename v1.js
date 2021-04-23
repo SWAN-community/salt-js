@@ -72,6 +72,11 @@ function SWANSalt(element, initValue) {
         text-shadow: 2px 0 0 #000, 0 -2px 0 #000, 0 2px 0 #000, -2px 0 0 #000;
         font-size: 2em;
         pointer-events: none;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
     }
     .top-left {
         top: 0px;
