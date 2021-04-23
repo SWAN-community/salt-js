@@ -181,15 +181,7 @@ function SWANSalt(element, initValue) {
         }
     }
 
-    function getIndicatorClass(value, item) {
-        // Count number of items in selected that equal the value to determine 
-        // the position of the number. Fall back to the given position which
-        // is the number of elements in selected.
-        var s = selected.filter(s => s == value).length;
-        if (s != undefined && s > 0) {
-            item = s
-        }
-
+    function getIndicatorClass(item) {
         switch (item) {
             case 1:
                 return "top-left";
@@ -208,7 +200,7 @@ function SWANSalt(element, initValue) {
         var element = document.getElementById(colIdPrefix + value);
         
         var indicator = document.createElement('div');
-        indicator.classList.add(getIndicatorClass(value, item));
+        indicator.classList.add(getIndicatorClass(item));
         indicator.innerHTML = item;
         
         indicators.push(indicator);
@@ -221,7 +213,7 @@ function SWANSalt(element, initValue) {
         
         if (selected.length < 4) {
             selected.push(value);
-            updateIndicator(value, selected.length);
+            updateIndicator(value, selected.filter(s => s == value).length);
         }
 
         if (selected.length == 4){
