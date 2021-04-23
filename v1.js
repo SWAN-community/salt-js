@@ -110,7 +110,21 @@ function SWANSalt(element, initValue) {
     }
 
     function fromBase64(v) {
-        var binary = window.atob(v);
+        var binary = '';
+        
+        try {
+            binary = window.atob(v);
+        } catch (err) {
+            console.log(`Cannot decode salt value '${v}'`);
+            console.log(err);
+            return;
+        } finally {
+            if (binary == undefined || binary == '') {
+                console.log()
+                return;
+            }
+        }
+
         var len = binary.length;
         var b = new Uint8Array(len);
         for (var i = 0; i < len; i++) {
@@ -120,6 +134,11 @@ function SWANSalt(element, initValue) {
     }
 
     function fromByteArray(b) {
+        if (b.length != 2) {
+            console.log('Salt value byte length should be 2 but was ' + b.length);
+            return;
+        }
+
         var n1 = b[0]>>4
         var n2 = b[0]&0xF
         var n3 = b[1]>>4
@@ -192,15 +211,16 @@ function SWANSalt(element, initValue) {
             case 4:
                 return "bottom-right";
             default:
-                throw `Invalid value: ${item}`;
+                console.log(`Invalid index: ${item}`);
+                return "top-left";
         }
     }
 
     function updateIndicator(value, item, index) {
-
         if (index == undefined) {
             index = item;
         }
+        
         var element = document.getElementById(colIdPrefix + value);
         
         var indicator = document.createElement('div');
@@ -249,7 +269,7 @@ function SWANSalt(element, initValue) {
                 initValue.constructor === Uint8Array) {
                 fromByteArray(initValue)
             } else {
-                throw `initValue type of '${typeof initValue}' not supported.`;
+                console.log(`initValue type of '${typeof initValue}' not supported.`);
             }
 
             if (selected.length == 4) {
