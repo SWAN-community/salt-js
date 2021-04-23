@@ -181,8 +181,16 @@ function SWANSalt(element, initValue) {
         }
     }
 
-    function getIndicatorClass(value){
-        switch (value) {
+    function getIndicatorClass(value, item) {
+        // Count number of items in selected that equal the value to determine 
+        // the position of the number. Fall back to the given position which
+        // is the number of elements in selected.
+        var s = selected.filter(s => s == value).length;
+        if (s != undefined && s > 0) {
+            item = s
+        }
+
+        switch (item) {
             case 1:
                 return "top-left";
             case 2:
@@ -192,7 +200,7 @@ function SWANSalt(element, initValue) {
             case 4:
                 return "bottom-right";
             default:
-                throw `Invalid value: ${value}`;
+                throw `Invalid value: ${item}`;
         }
     }
 
@@ -200,7 +208,7 @@ function SWANSalt(element, initValue) {
         var element = document.getElementById(colIdPrefix + value);
         
         var indicator = document.createElement('div');
-        indicator.classList.add(getIndicatorClass(item));
+        indicator.classList.add(getIndicatorClass(value, item));
         indicator.innerHTML = item;
         
         indicators.push(indicator);
