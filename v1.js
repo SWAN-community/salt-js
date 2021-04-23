@@ -196,11 +196,15 @@ function SWANSalt(element, initValue) {
         }
     }
 
-    function updateIndicator(value, item) {
+    function updateIndicator(value, item, index) {
+
+        if (index == undefined) {
+            index = item;
+        }
         var element = document.getElementById(colIdPrefix + value);
         
         var indicator = document.createElement('div');
-        indicator.classList.add(getIndicatorClass(item));
+        indicator.classList.add(getIndicatorClass(index));
         indicator.innerHTML = item;
         
         indicators.push(indicator);
@@ -213,7 +217,7 @@ function SWANSalt(element, initValue) {
         
         if (selected.length < 4) {
             selected.push(value);
-            updateIndicator(value, selected.filter(s => s == value).length);
+            updateIndicator(value, selected.length, selected.filter(s => s == value).length);
         }
 
         if (selected.length == 4){
@@ -250,7 +254,9 @@ function SWANSalt(element, initValue) {
 
             if (selected.length == 4) {
                 for(i = 0; i < selected.length; i++){
-                    updateIndicator(selected[i], i+1);
+                    updateIndicator(selected[i], 
+                        i+1, 
+                        selected.slice(0, i+1).filter(s => s == selected[i]).length);
                 }
                 complete();
             }
