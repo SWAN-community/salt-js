@@ -1,10 +1,14 @@
 # Salt JavaScript (salt-js)
 
+The SWAN SID Salt implementation in JavaScript.
 
+See the [salt-go](https://github.com/SWAN-community/salt-go) repository for 
+details.
 
 ## Pre-requisites
 
-salt-js requires bootstrap 4.x.x, see [usage](#usage) on how to include bootstrap.
+salt-js requires bootstrap 4.x.x, see [usage](#usage) for an example which 
+includes bootstrap.
 
 ## Usage
 
