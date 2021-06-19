@@ -157,7 +157,7 @@ function SWANSalt(element, initValue) {
         for (var i = 0; i < len; i++) {
             binary += String.fromCharCode(v[i]);
         }
-        return btoa(binary).replace(/\=/, '');
+        return btoa(binary);
     }
 
     function byteValue() {
